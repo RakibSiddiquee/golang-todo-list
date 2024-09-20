@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"github.com/CloudyKit/jet/v6"
 	"log"
+	"os"
 )
 
 type server struct {
@@ -21,5 +21,26 @@ type application struct {
 }
 
 func main() {
-	fmt.Println("Hello World")
+	// Init the server
+	server := server{
+		host: "localhost",
+		port: "8091",
+		url:  "http://localhost:8091",
+	}
+
+	// Init the application
+	app := &application{
+		server:  server,
+		appName: "Golang Todo List",
+		debug:   true,
+		infoLog: log.New(os.Stdout, "INFO\t", log.Ltime|log.Ldate|log.Lshortfile),
+		errLog:  log.New(os.Stdout, "ERROR\t", log.Ltime|log.Ldate|log.Llongfile),
+	}
+
+	// init jet template
+	if app.debug {
+		app.view = jet.NewSet(jet.NewOSFileSystemLoader("./views"), jet.InDevelopmentMode())
+	} else {
+		app.view = jet.NewSet(jet.NewOSFileSystemLoader("./views"))
+	}
 }
