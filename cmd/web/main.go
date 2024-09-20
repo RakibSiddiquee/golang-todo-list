@@ -43,4 +43,8 @@ func main() {
 	} else {
 		app.view = jet.NewSet(jet.NewOSFileSystemLoader("./views"))
 	}
+
+	if err := app.listenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 }
