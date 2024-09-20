@@ -19,5 +19,9 @@ func (a *application) routes() http.Handler {
 	// Routes
 	mux.Get("/", a.homeHandler)
 
+	// fileServer to load assets and css
+	fileServer := http.FileServer(http.Dir("./public"))
+	mux.Handle("/public/*", http.StripPrefix("/public", fileServer))
+
 	return mux
 }
