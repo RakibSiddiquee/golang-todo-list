@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/CloudyKit/jet/v6"
 	"log"
 )
@@ -20,5 +21,5 @@ type application struct {
 }
 
 func main() {
-
+	fmt.Println("Hello World")
 }
